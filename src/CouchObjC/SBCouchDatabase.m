@@ -337,7 +337,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             SBDebug(@"%@", @"JSON was not in valid format");
         }
         
-        NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
         return [[[SBCouchResponse alloc] initWithDictionary:jsonValue] autorelease];
     }else{
         SBDebug(@"HTTP PUT FAILED:  %@",  urlString);

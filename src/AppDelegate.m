@@ -167,8 +167,6 @@ static BOOL gDebugPrint;
 		return NO;
 	}
 	
-	NSString *updateIntervalString = [settings objectForKey:@"couchDBUpdateInterval"];
-	
 	couch = tmpCouch;
 	[couch createDatabase:couchDBDBName];
 	db = [[couch database:couchDBDBName] retain];
@@ -190,12 +188,6 @@ static BOOL gDebugPrint;
 	}
 	[storedReport setObject:KEY_DOC_STATUS forKey:KEY_DOC_DOCTYPE];
 	SBCouchResponse *response =[db putDocument:storedReport named:KEY_DOC_STATUS];
-
-	// Update twitter
-	CFBooleanRef temp = (CFBooleanRef) CFPreferencesCopyValue(CFSTR("useTwitter"), APP_ID, kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
-	BOOL twit = (temp) ? CFBooleanGetValue(temp) : NO;
-	if (twit)
-		[self updateTwitter];
 }
 
 
