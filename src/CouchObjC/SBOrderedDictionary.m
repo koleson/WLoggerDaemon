@@ -7,7 +7,8 @@
 //
 
 #import "SBOrderedDictionary.h"
-#import "JSON.h"
+
+
 NSString *DescriptionForObject(NSObject *object, id locale, NSUInteger indent)
 {
 	NSString *objectString;

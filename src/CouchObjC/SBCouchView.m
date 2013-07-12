@@ -8,7 +8,7 @@
 
 #import "SBCouchView.h"
 #import "CouchObjC.h"
-#import "JSON.h"
+
 
 @implementation SBCouchView
 
@@ -87,7 +87,14 @@
 }
 
 -(NSString*)description{
-    return [self JSONRepresentation];
+    NSError *jsonError;
+    NSData *tempData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&jsonError];
+    if (jsonError) {
+        SBDebug(@"%@", @"could not generate serialization of self");
+    }
+    NSString *description = [NSString stringWithUTF8String:[tempData bytes]];
+    
+    return description;
 }
 
 - (NSEnumerator*) slowViewEnumerator{

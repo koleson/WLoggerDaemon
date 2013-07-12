@@ -7,7 +7,6 @@
 //
 
 #import "SBCouchDocument.h"
-#import "JSON.h"
 #import "SBOrderedDictionary.h"
 #import "SBCouchServer.h";
 #import "SBCouchDatabase.h"
@@ -161,8 +160,13 @@
 }
 
 - (NSString *)description{
-    NSString *dictionaryDiscription = [self JSONRepresentation];
-    NSMutableString *description = [NSMutableString stringWithString:dictionaryDiscription];
+    NSError *jsonError;
+    NSData *tempData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&jsonError];
+    if (jsonError) {
+        SBDebug(@"%@", @"could not generate serialization of self");
+    }
+    NSString *dictionaryDescription = [NSString stringWithUTF8String:[tempData bytes]];
+    NSMutableString *description = [NSMutableString stringWithString:dictionaryDescription];
     SBCouchServer *server = [self.couchDatabase couchServer];
     
     [description appendFormat:@"\n serverName : %@", [server serverURLAsString]];

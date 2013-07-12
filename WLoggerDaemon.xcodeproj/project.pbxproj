@@ -23,11 +23,8 @@
 		4BE2877F10B03A9F00209635 /* MGTwitterStatusesParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4C67F40FC2AFAA00F9B1BB /* MGTwitterStatusesParser.m */; };
 		4BE2878010B03A9F00209635 /* MGTwitterUsersParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4C67FA0FC2AFAA00F9B1BB /* MGTwitterUsersParser.m */; };
 		4BE2878110B03A9F00209635 /* MGTwitterXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4C68340FC2BE6100F9B1BB /* MGTwitterXMLParser.m */; };
-		4BE2878210B03A9F00209635 /* NSCalendarDate+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3A39C105E94E00048F7E5 /* NSCalendarDate+SBJSON.m */; };
 		4BE2878310B03A9F00209635 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4C68020FC2AFAA00F9B1BB /* NSData+Base64.m */; };
 		4BE2878410B03A9F00209635 /* NSDictionary+CouchObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3A39E105E94E00048F7E5 /* NSDictionary+CouchObjC.m */; };
-		4BE2878510B03A9F00209635 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3A3A0105E94E00048F7E5 /* NSObject+SBJSON.m */; };
-		4BE2878610B03A9F00209635 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3A3A2105E94E00048F7E5 /* NSString+SBJSON.m */; };
 		4BE2878710B03A9F00209635 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4C68040FC2AFAA00F9B1BB /* NSString+UUID.m */; };
 		4BE2878810B03A9F00209635 /* ReadingAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4C65210FBDDA4F00F9B1BB /* ReadingAssembler.m */; };
 		4BE2878910B03A9F00209635 /* SBCouchDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3A367105E94950048F7E5 /* SBCouchDatabase.m */; };
@@ -116,15 +113,8 @@
 		4BD3A379105E94950048F7E5 /* SBJSONScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJSONScanner.m; path = src/CouchObjC/SBJSONScanner.m; sourceTree = "<group>"; };
 		4BD3A37A105E94950048F7E5 /* SBOrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBOrderedDictionary.h; path = src/CouchObjC/SBOrderedDictionary.h; sourceTree = "<group>"; };
 		4BD3A37B105E94950048F7E5 /* SBOrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBOrderedDictionary.m; path = src/CouchObjC/SBOrderedDictionary.m; sourceTree = "<group>"; };
-		4BD3A39A105E94E00048F7E5 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSON.h; path = src/JSON/JSON.h; sourceTree = "<group>"; };
-		4BD3A39B105E94E00048F7E5 /* NSCalendarDate+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSCalendarDate+SBJSON.h"; path = "src/JSON/NSCalendarDate+SBJSON.h"; sourceTree = "<group>"; };
-		4BD3A39C105E94E00048F7E5 /* NSCalendarDate+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSCalendarDate+SBJSON.m"; path = "src/JSON/NSCalendarDate+SBJSON.m"; sourceTree = "<group>"; };
 		4BD3A39D105E94E00048F7E5 /* NSDictionary+CouchObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+CouchObjC.h"; path = "src/JSON/NSDictionary+CouchObjC.h"; sourceTree = "<group>"; };
 		4BD3A39E105E94E00048F7E5 /* NSDictionary+CouchObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+CouchObjC.m"; path = "src/JSON/NSDictionary+CouchObjC.m"; sourceTree = "<group>"; };
-		4BD3A39F105E94E00048F7E5 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+SBJSON.h"; path = "src/JSON/NSObject+SBJSON.h"; sourceTree = "<group>"; };
-		4BD3A3A0105E94E00048F7E5 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+SBJSON.m"; path = "src/JSON/NSObject+SBJSON.m"; sourceTree = "<group>"; };
-		4BD3A3A1105E94E00048F7E5 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+SBJSON.h"; path = "src/JSON/NSString+SBJSON.h"; sourceTree = "<group>"; };
-		4BD3A3A2105E94E00048F7E5 /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+SBJSON.m"; path = "src/JSON/NSString+SBJSON.m"; sourceTree = "<group>"; };
 		4BDF48EC10CF94F90057C860 /* WLogger_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLogger_Prefix.pch; path = src/WLogger_Prefix.pch; sourceTree = "<group>"; };
 		4BE2853710B0398700209635 /* WLoggerDaemon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = WLoggerDaemon; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BF471700FC9B4E100CAF2EB /* EMKeychainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EMKeychainItem.h; path = src/EMKeychainItem.h; sourceTree = "<group>"; };
@@ -132,13 +122,6 @@
 		4BF471720FC9B4E100CAF2EB /* EMKeychainProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EMKeychainProxy.h; path = src/EMKeychainProxy.h; sourceTree = "<group>"; };
 		4BF471730FC9B4E100CAF2EB /* EMKeychainProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EMKeychainProxy.m; path = src/EMKeychainProxy.m; sourceTree = "<group>"; };
 		4BF471770FC9B5AC00CAF2EB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
-		4BF64999105E8F8100846D01 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSON.h; path = src/JSON/JSON.h; sourceTree = "<group>"; };
-		4BF6499A105E8F8100846D01 /* NSCalendarDate+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSCalendarDate+SBJSON.h"; path = "src/JSON/NSCalendarDate+SBJSON.h"; sourceTree = "<group>"; };
-		4BF6499B105E8F8100846D01 /* NSCalendarDate+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSCalendarDate+SBJSON.m"; path = "src/JSON/NSCalendarDate+SBJSON.m"; sourceTree = "<group>"; };
-		4BF6499C105E8F8100846D01 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+SBJSON.h"; path = "src/JSON/NSObject+SBJSON.h"; sourceTree = "<group>"; };
-		4BF6499D105E8F8100846D01 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+SBJSON.m"; path = "src/JSON/NSObject+SBJSON.m"; sourceTree = "<group>"; };
-		4BF6499E105E8F8100846D01 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+SBJSON.h"; path = "src/JSON/NSString+SBJSON.h"; sourceTree = "<group>"; };
-		4BF6499F105E8F8100846D01 /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+SBJSON.m"; path = "src/JSON/NSString+SBJSON.m"; sourceTree = "<group>"; };
 		4BF649A8105E8F9C00846D01 /* CouchObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CouchObjC.h; path = src/CouchObjC/CouchObjC.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				4BF649A6105E8F8600846D01 /* CouchObjC */,
-				4BF64995105E8F6900846D01 /* JSON */,
 				4BF471700FC9B4E100CAF2EB /* EMKeychainItem.h */,
 				4BF471710FC9B4E100CAF2EB /* EMKeychainItem.m */,
 				4BF471720FC9B4E100CAF2EB /* EMKeychainProxy.h */,
@@ -282,32 +264,11 @@
 			name = TwitterEngine;
 			sourceTree = "<group>";
 		};
-		4BF64995105E8F6900846D01 /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				4BD3A39A105E94E00048F7E5 /* JSON.h */,
-				4BD3A39B105E94E00048F7E5 /* NSCalendarDate+SBJSON.h */,
-				4BD3A39C105E94E00048F7E5 /* NSCalendarDate+SBJSON.m */,
-				4BD3A39D105E94E00048F7E5 /* NSDictionary+CouchObjC.h */,
-				4BD3A39E105E94E00048F7E5 /* NSDictionary+CouchObjC.m */,
-				4BD3A39F105E94E00048F7E5 /* NSObject+SBJSON.h */,
-				4BD3A3A0105E94E00048F7E5 /* NSObject+SBJSON.m */,
-				4BD3A3A1105E94E00048F7E5 /* NSString+SBJSON.h */,
-				4BD3A3A2105E94E00048F7E5 /* NSString+SBJSON.m */,
-				4BF64999105E8F8100846D01 /* JSON.h */,
-				4BF6499A105E8F8100846D01 /* NSCalendarDate+SBJSON.h */,
-				4BF6499B105E8F8100846D01 /* NSCalendarDate+SBJSON.m */,
-				4BF6499C105E8F8100846D01 /* NSObject+SBJSON.h */,
-				4BF6499D105E8F8100846D01 /* NSObject+SBJSON.m */,
-				4BF6499E105E8F8100846D01 /* NSString+SBJSON.h */,
-				4BF6499F105E8F8100846D01 /* NSString+SBJSON.m */,
-			);
-			name = JSON;
-			sourceTree = "<group>";
-		};
 		4BF649A6105E8F8600846D01 /* CouchObjC */ = {
 			isa = PBXGroup;
 			children = (
+				4BD3A39D105E94E00048F7E5 /* NSDictionary+CouchObjC.h */,
+				4BD3A39E105E94E00048F7E5 /* NSDictionary+CouchObjC.m */,
 				4BD3A366105E94950048F7E5 /* SBCouchDatabase.h */,
 				4BD3A367105E94950048F7E5 /* SBCouchDatabase.m */,
 				4BD3A368105E94950048F7E5 /* SBCouchDatabaseInfoDocument.h */,
@@ -395,11 +356,8 @@
 				4BE2877F10B03A9F00209635 /* MGTwitterStatusesParser.m in Sources */,
 				4BE2878010B03A9F00209635 /* MGTwitterUsersParser.m in Sources */,
 				4BE2878110B03A9F00209635 /* MGTwitterXMLParser.m in Sources */,
-				4BE2878210B03A9F00209635 /* NSCalendarDate+SBJSON.m in Sources */,
 				4BE2878310B03A9F00209635 /* NSData+Base64.m in Sources */,
 				4BE2878410B03A9F00209635 /* NSDictionary+CouchObjC.m in Sources */,
-				4BE2878510B03A9F00209635 /* NSObject+SBJSON.m in Sources */,
-				4BE2878610B03A9F00209635 /* NSString+SBJSON.m in Sources */,
 				4BE2878710B03A9F00209635 /* NSString+UUID.m in Sources */,
 				4BE2878810B03A9F00209635 /* ReadingAssembler.m in Sources */,
 				4BE2878910B03A9F00209635 /* SBCouchDatabase.m in Sources */,

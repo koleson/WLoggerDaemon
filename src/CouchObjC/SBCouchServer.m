@@ -30,7 +30,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "SBCouchServer.h"
 #import "SBCouchDatabase.h"
 #import "CouchObjC.h"
-#import "JSON.h"
 
 @implementation SBCouchServer
 
@@ -71,8 +70,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                      error:&error];
     
     if (data) {
-        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSDictionary *dict = [json JSONValue];
+        id jsonValue = [NSJSONSerialization JSONObjectWithData:data options:NSUTF8StringEncoding error:&error];
+        if (error) {
+            SBDebug(@"%@", @"JSON was not in valid format");
+        }
+        NSDictionary *dict = jsonValue;
         return [dict valueForKey:@"version"];
     }
     
@@ -130,8 +132,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                      error:&error];
     
     if (200 == [response statusCode]) {        
-        NSString *json = [ [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-        return [json JSONValue];
+        id jsonValue = [NSJSONSerialization JSONObjectWithData:data options:NSUTF8StringEncoding error:&error];
+        if (error) {
+            SBDebug(@"%@", @"JSON was not in valid format");
+        }
+        return jsonValue;
     }
     
     return nil;    

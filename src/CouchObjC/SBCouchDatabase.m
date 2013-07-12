@@ -33,7 +33,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "NSDictionary+CouchObjC.h"
 #import "SBCouchDocument.h"
 
-#import "JSON.h"
 #import "CouchObjC.h"
 
 @interface SBCouchDatabase (Private)
@@ -155,8 +154,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     
     SBDebug(@" URL Status Code %i", [response statusCode]);
     if (200 == [response statusCode]) {
-        NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-        return [json JSONValue];
+        NSError *error;
+        id jsonValue = [NSJSONSerialization JSONObjectWithData:data options:NSUTF8StringEncoding error:&error];
+        if (error) {
+            SBDebug(@"%@", @"JSON was not in valid format");
+        }
+        
+        return jsonValue;
     }else{
         SBDebug(@"HTTP GET FAILED:  %@",  encodedString );
         SBDebug(@"        STATUS CODE %i",  [response statusCode]);
@@ -214,10 +218,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return (NSEnumerator*)enumerator;
 }
 
-- (NSDictionary*)runSlowView:(SBCouchView*)view{    
-    //[NSString stringWithFormat:@"", COUCH_VIEW_SLOW, view]
-    //return [self postDocument:view];
-    NSString *tempView = [view JSONRepresentation];
+- (NSDictionary*)runSlowView:(SBCouchView*)view{
+    NSError *jsonError;
+    NSData *tempData = [NSJSONSerialization dataWithJSONObject:view options:NSJSONWritingPrettyPrinted error:&jsonError];
+    if (jsonError) {
+        SBDebug(@"could not generate serialization of view");
+    }
+    
+    NSString *tempView = [NSString stringWithUTF8String:[tempData bytes]];
     NSData *body = [tempView dataUsingEncoding:NSUTF8StringEncoding];
     
     NSString *urlString;
@@ -243,14 +251,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                          returningResponse:&response
                                                      error:&error];
     SBDebug(@"status code %i", [response statusCode]);
-    SBDebug(@"headers %@", [[response allHeaderFields] JSONRepresentation]);
+    SBDebug(@"headers %@", [response allHeaderFields]);
     
     if (200 == [response statusCode]) {
-        NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-        // The following makes no sense in this context as there is no 'ok' value 
-        // in the dictionary.
-        //return [[SBCouchResponse alloc] initWithDictionary:[json JSONValue]];
-        return [json JSONValue];
+        id jsonValue = [NSJSONSerialization JSONObjectWithData:data options:NSUTF8StringEncoding error:&error];
+        if (error) {
+            SBDebug(@"%@", @"JSON was not in valid format");
+        }
+        
+        return jsonValue;
     }else{
         SBDebug(@"HTTP POST FAILED:  %@",  encodedURL  );
         SBDebug(@"        STATUS CODE %i",  [response statusCode]);
@@ -282,8 +291,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                      error:&error];
     
     if (201 == [response statusCode]) {
-        NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-        return [[[SBCouchResponse alloc] initWithDictionary:[json JSONValue]] autorelease];
+        id jsonValue = [NSJSONSerialization JSONObjectWithData:data options:NSUTF8StringEncoding error:&error];
+        if (error) {
+            SBDebug(@"%@", @"JSON was not in valid format");
+        }
+        
+        
+        return [[[SBCouchResponse alloc] initWithDictionary:jsonValue] autorelease];
     }else{
         SBDebug(@"HTTP POST FAILED:  %@",  urlString );
         SBDebug(@"        STATUS CODE %i",  [response statusCode]);
@@ -298,7 +312,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 - (SBCouchResponse*)putDocument:(NSDictionary*)doc named:(NSString*)x
 {
-    NSData *body = [[doc JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *jsonError;
+    NSData *tempData = [NSJSONSerialization dataWithJSONObject:doc options:NSJSONWritingPrettyPrinted error:&jsonError];
+    if (jsonError) {
+        SBDebug(@"%@", @"could not generate serialization of view");
+    }
+    
+    NSData *body = tempData;
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, x];
     NSURL *url = [NSURL URLWithString:urlString];    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
@@ -312,8 +332,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                      error:&error];
     
     if (201 == [response statusCode]) {
+        id jsonValue = [NSJSONSerialization JSONObjectWithData:data options:NSUTF8StringEncoding error:&error];
+        if (error) {
+            SBDebug(@"%@", @"JSON was not in valid format");
+        }
+        
         NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-        return [[[SBCouchResponse alloc] initWithDictionary:[json JSONValue]] autorelease];
+        return [[[SBCouchResponse alloc] initWithDictionary:jsonValue] autorelease];
     }else{
         SBDebug(@"HTTP PUT FAILED:  %@",  urlString);
         SBDebug(@"        STATUS CODE %i",  [response statusCode]);
@@ -325,12 +350,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (SBCouchResponse*)putDocument:(SBCouchDocument*)couchDocument
 {
+    NSError *jsonError;
+    NSData *tempData = [NSJSONSerialization dataWithJSONObject:couchDocument options:NSJSONWritingPrettyPrinted error:&jsonError];
+    if (jsonError) {
+        SBDebug(@"%@", @"could not generate serialization of view");
+    }
     
-    NSData *body = [[couchDocument JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *body = tempData;
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, [couchDocument identity]];
     NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];    
     SBDebug(@"%@", urlString);
-    SBDebug(@"%@", [couchDocument JSONRepresentation]);
+    SBDebug(@"%@", couchDocument);
     
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
@@ -344,8 +374,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                      error:&error];
     
     if (201 == [response statusCode]) {
-        NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-        NSDictionary *jsonValue = [json JSONValue];
+        id jsonValue = [NSJSONSerialization JSONObjectWithData:data options:NSUTF8StringEncoding error:&error];
+        if (error) {
+            SBDebug(@"%@", @"JSON was not in valid format");
+        }
+        
         [couchDocument setRevision:[jsonValue objectForKey:@"rev"]];
         return [[[SBCouchResponse alloc] initWithDictionary:jsonValue] autorelease];
     }else{
@@ -377,8 +410,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     
     SBDebug(@"response code from the delete %i", [response statusCode]);
     if (200 == [response statusCode]) {
-        NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-        return [[[SBCouchResponse alloc] initWithDictionary:[json JSONValue]] autorelease];
+        id jsonValue = [NSJSONSerialization JSONObjectWithData:data options:NSUTF8StringEncoding error:&error];
+        if (error) {
+            SBDebug(@"%@", @"JSON was not in valid format");
+        }
+        
+        return [[[SBCouchResponse alloc] initWithDictionary:jsonValue] autorelease];
     }
     
     return nil;
@@ -403,8 +440,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     // 200 == OK
     SBDebug(@"response code from the delete %i", [response statusCode]);
     if (200 == [response statusCode]) {
+        id jsonValue = [NSJSONSerialization JSONObjectWithData:data options:NSUTF8StringEncoding error:&error];
+        if (error) {
+            SBDebug(@"%@", @"JSON was not in valid format");
+        }
         NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-        return [[[SBCouchResponse alloc] initWithDictionary:[json JSONValue]] autorelease];
+        return [[[SBCouchResponse alloc] initWithDictionary:jsonValue] autorelease];
     }
     
     return nil;
