@@ -29,8 +29,6 @@
 + (BOOL) debugPrint;
 - (NSDictionary *) getSettings;
 - (BOOL) saveSettings: (NSDictionary *) dict;
-- (BOOL) setupTwitter: (NSDictionary*) settings;
 - (BOOL) setupCouchDB: (NSDictionary*) settings;
-- (void) updateTwitter;
 
 @end
