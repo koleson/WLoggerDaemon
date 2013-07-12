@@ -50,12 +50,13 @@ static BOOL gDebugPrint;
 		NSMutableDictionary *new = [[NSMutableDictionary alloc] initWithCapacity:6];
 		[new setObject:@"localhost" forKey:@"couchDBURL"];
 		[new setObject:[NSNumber numberWithInt:5984] forKey:@"couchDBPort"];
-		[new setObject:@"" forKey:@"couchDBUser"];
+		[new setObject:@"weatheruser" forKey:@"couchDBUser"];
+        [new setObject:@"weatheruser" forKey:@"couchDBPassword"];
 		[new setObject:@"wdata" forKey:@"couchDBDBName"];
-		[new setObject:@"2" forKey:@"couchDBUpdateInterval"];
+		[new setObject:@"1" forKey:@"couchDBUpdateInterval"];
 		[new setObject:[NSNumber numberWithBool:YES] forKey:@"useComputersClock"];
 		[new setObject:[NSNumber numberWithBool:NO] forKey:@"useTwitter"];
-		[new setObject:[NSNumber numberWithBool:NO] forKey:@"useDebugLogging"];
+		[new setObject:[NSNumber numberWithBool:YES] forKey:@"useDebugLogging"];
 		[new setObject:@"" forKey:@"twitterUser"];
 		[self saveSettings:new];
 		settings = new;
@@ -91,7 +92,7 @@ static BOOL gDebugPrint;
 - (BOOL) setDebug: (NSNumber*) debug {
 		
 	gDebugPrint = [debug boolValue];
-	CFPreferencesSetValue(CFSTR("useDebugLogging"), debug, APP_ID, kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
+	CFPreferencesSetValue(CFSTR("useDebugLogging"), (__bridge CFPropertyListRef)(debug), APP_ID, kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
 	CFPreferencesSynchronize(APP_ID, kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
 	return gDebugPrint;
 }
@@ -100,7 +101,7 @@ static BOOL gDebugPrint;
 - (NSDictionary *) getSettings {
 	CFArrayRef aref = CFPreferencesCopyKeyList(APP_ID, kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
 	CFDictionaryRef dref = CFPreferencesCopyMultiple(aref, APP_ID, kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
-	return (NSDictionary*) dref;
+	return (__bridge NSDictionary*) dref;
 }
 
 - (NSDictionary *) getLevels {
@@ -111,7 +112,7 @@ static BOOL gDebugPrint;
 
 - (BOOL) saveSettings: (NSDictionary *) settings {
 	for (id key in settings) {
-		CFPreferencesSetValue((CFStringRef)key, [settings objectForKey:key], APP_ID, kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
+		CFPreferencesSetValue((__bridge CFStringRef)key, [settings objectForKey:key], APP_ID, kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
 	}
 	// Set absent user to empty string
 	if (![settings objectForKey:@"couchDBUser"]) {
@@ -139,36 +140,6 @@ static BOOL gDebugPrint;
 }
 
 #pragma mark Remote Objects methods END
-
-
-- (BOOL) setupTwitter: (NSDictionary*) settings {
-	if (!twitterEngine)
-		twitterEngine = [[MGTwitterEngine alloc] initWithDelegate:self];
-	else
-		[twitterEngine closeAllConnections];
-	
-	NSString *username = [settings objectForKey:@"twitterUser"];
-	NSString *password = [settings objectForKey:@"twitterPassword"];
-	
-	if ([username length] > 0) {
-//		EMGenericKeychainItem *keychainItem = [KeyChainHandler getTwitterKeychainItemForUser: username];
-//		NSLog(@"Got keychain %@", keychainItem);
-//		
-//		NSString *test = [NSString stringWithFormat:@"Twitteruser %@ pwd: %@", username, [keychainItem password]];
-//		NSLog(@"%@", test);
-//		
-//		[twitterEngine setUsername:username password:[keychainItem password]];
-		[twitterEngine setUsername:username password:password];
-		NSString *s = [NSString stringWithFormat:@"WLogger is started at %@ and will nag the twitterSphere", [NSDate date]];
-//		[twitterEngine sendUpdate:s];
-//		[twitterEngine checkUserCredentials];
-	} else {
-		return NO;
-	}
-
-	return YES;
-}
-
 
 - (BOOL) setupCouchDB: (NSDictionary*) settings {	
 	NSNumber *port = [settings valueForKey:@"couchDBPort"];	
@@ -225,74 +196,6 @@ static BOOL gDebugPrint;
 	BOOL twit = (temp) ? CFBooleanGetValue(temp) : NO;
 	if (twit)
 		[self updateTwitter];
-}
-
-
-//
-// Update twitter with current readings
-//
-- (void) updateTwitter {	
-	NSMutableString *s = [NSMutableString stringWithCapacity:140];
-	NSString *key = [NSString stringWithFormat:@"%@%d", KEY_TEMP_AND_HUM_READING_SENSOR_, 1];
-	NSDictionary *tempOut = [weatherReport objectForKey:key];
-	if (tempOut) {
-		NSDictionary *d = [tempOut objectForKey:KEY_READINGS];
-		[s appendFormat:@"Out: %.1f¡C/%d%% ",
-		 [[d objectForKey:KEY_TEMP_OUTDOOR] doubleValue],
-		 [[d objectForKey:KEY_HUMIDITY_OUTDOOR] intValue]
-		];
-	}
-	
-	tempOut = [weatherReport objectForKey:KEY_WIND_READING];
-	if (tempOut) {
-		NSDictionary *d = [tempOut objectForKey:KEY_READINGS];
-		[s appendFormat:@"Wind: %d¡, gust %.1f m/s, avg %.1f\n",
-		 [[d objectForKey:KEY_WIND_DIRECTION] intValue],
-		 [[d objectForKey:KEY_WIND_AVERAGE] doubleValue],
-		 [[d objectForKey:KEY_WIND_GUST] doubleValue]
-		];
-	}
-	
-	tempOut = [weatherReport objectForKey:KEY_UV_READING];
-	if (tempOut) {
-		NSDictionary *d = [tempOut objectForKey:KEY_READINGS];
-		[s appendFormat:@"UV Index: %d ",
-		 [[d objectForKey:KEY_UV_INDEX] intValue]
-		];
-	}
-	
-	tempOut = [weatherReport objectForKey:KEY_RAIN_READING];
-	if (tempOut) {
-		NSDictionary *d = [tempOut objectForKey:KEY_READINGS];
-		[s appendFormat:@"Rain 24h: %d ",
-		 [[d objectForKey:KEY_RAIN_24H] intValue]
-		];
-	}
-	
-	tempOut = [weatherReport objectForKey:KEY_BAROMETER_READING];
-	if (tempOut) {
-		NSDictionary *d = [tempOut objectForKey:KEY_READINGS];
-		[s appendFormat:@"Baro: %d mbar Forecast: %@\n",
-		 [[d objectForKey:KEY_BAROMETER_RELATIVE] intValue],
-		 [d objectForKey:KEY_BAROMETER_ABSOLUTE_FORECAST_STRING]
-		];
-	}
-	
-	key = [NSString stringWithFormat:@"%@%d", KEY_TEMP_AND_HUM_READING_SENSOR_, 0];
-	tempOut = [weatherReport objectForKey:key];
-	if (tempOut) {
-		NSDictionary *d = [tempOut objectForKey:KEY_READINGS];
-		[s appendFormat:@"In: %.1f¡C/%d%% ",
-		 [[d objectForKey:KEY_TEMP_INDOOR] doubleValue],
-		 [[d objectForKey:KEY_HUMIDITY_INDOOR] intValue]
-		];
-	}
-	
-
-	if (DEBUGALOT)
-		NSLog(@"Twitter string with %d chars:\n%@", [s length], s);
-
-	[twitterEngine sendUpdate:s];
 }
 
 

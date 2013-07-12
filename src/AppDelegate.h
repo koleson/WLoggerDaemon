@@ -5,7 +5,6 @@
 #import "WMR100NDeviceController.h"
 #import "ReadingAssembler.h"
 #import "CouchObjC.h"
-#import "MGTwitterEngine.h"
 #import <WebKit/WebKit.h>
 #include <sys/time.h>
 
@@ -20,8 +19,7 @@
 	// My worker objects
 	WMR100NDeviceController *wmr100n;
 	ReadingAssembler *ra;
-	
-	MGTwitterEngine *twitterEngine;
+
     SBCouchServer *couch;
     SBCouchDatabase *db;
 	NSMutableDictionary *weatherReport;
