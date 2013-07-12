@@ -132,8 +132,7 @@ static BOOL gDebugPrint;
 	
 	gDebugPrint = [[settings objectForKey:@"useDebugLogging"] boolValue];
 
-	// Re-do the twitter and couchdb setup in case settings have changed
-	[self setupTwitter:settings];
+	// Re-do the couchdb setup in case settings have changed
 	[self setupCouchDB:settings];
 	
 	return YES;
@@ -253,8 +252,7 @@ static BOOL gDebugPrint;
 	NSLog(@"Weather station plugged in. WLoggerDaemon build 3");
 	
 	NSDictionary *settings = [self getSettings];
-	
-	[self setupTwitter:settings];
+
 	[self setupCouchDB:settings];
 	
 	

@@ -28,7 +28,6 @@
 - (NSDictionary *) getSettings;
 - (NSDictionary *) getLevels;
 - (BOOL) saveSettings: (NSDictionary *) dict;
-- (BOOL) setupTwitter: (NSDictionary*) settings;
 - (BOOL) setupCouchDB: (NSDictionary*) settings;
 - (BOOL) setDebug: (NSNumber*) state;
 - (void) hourChime: (NSTimer*) timer;
