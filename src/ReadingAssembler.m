@@ -190,7 +190,12 @@ static int minuteCycleDone;
 			} else if (sensor == 1) {
 				[userInfo setObject:[NSNumber numberWithDouble:temp] forKey:KEY_TEMP_OUTDOOR];				
 				[userInfo setObject:[NSNumber numberWithUnsignedInt:humidity] forKey:KEY_HUMIDITY_OUTDOOR];
-				[userInfo setObject:[NSNumber numberWithDouble:dewPoint] forKey:KEY_TEMP_DEWPOINT_CALCULATED];		
+                
+                // if dewPoint != dewPoint, we have NaN on our hands.  JSON doesn't like NaN.
+                // kmo 11 jul 2013 19h57
+                if (dewPoint == dewPoint) {
+                    [userInfo setObject:[NSNumber numberWithDouble:dewPoint] forKey:KEY_TEMP_DEWPOINT_CALCULATED];
+                }
 			} else if (sensor >= 2) {
 				NSString *keyForTemp = [NSString stringWithFormat:@"%@%d", KEY_TEMP_SENSOR_X, sensor];
 				NSString *keyForHumidity = [NSString stringWithFormat:@"%@%d", KEY_HUMIDITY_SENSOR_X, sensor];
