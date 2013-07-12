@@ -12,9 +12,6 @@
 		4BE2873410B03A6800209635 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BBAEBEF0B37525300957377 /* IOKit.framework */; };
 		4BE2873510B03A7500209635 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF471770FC9B5AC00CAF2EB /* Security.framework */; };
 		4BE2877610B03A9F00209635 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBAEBCF0B374B3800957377 /* AppDelegate.m */; };
-		4BE2877710B03A9F00209635 /* EMKeychainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF471710FC9B4E100CAF2EB /* EMKeychainItem.m */; };
-		4BE2877810B03A9F00209635 /* EMKeychainProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF471730FC9B4E100CAF2EB /* EMKeychainProxy.m */; };
-		4BE2877910B03A9F00209635 /* KeyChainHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8ACBBD0FCE59F100924796 /* KeyChainHandler.m */; };
 		4BE2877A10B03A9F00209635 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		4BE2878410B03A9F00209635 /* NSDictionary+CouchObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3A39E105E94E00048F7E5 /* NSDictionary+CouchObjC.m */; };
 		4BE2878810B03A9F00209635 /* ReadingAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4C65210FBDDA4F00F9B1BB /* ReadingAssembler.m */; };
@@ -57,8 +54,6 @@
 		4B4FD8C70FBB441F005A67CC /* WMR100NDeviceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMR100NDeviceController.h; path = src/WMR100NDeviceController.h; sourceTree = "<group>"; };
 		4B4FD8C80FBB441F005A67CC /* WMR100NDeviceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMR100NDeviceController.m; path = src/WMR100NDeviceController.m; sourceTree = "<group>"; };
 		4B81494F10779E9E0099B190 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
-		4B8ACBBC0FCE59F100924796 /* KeyChainHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyChainHandler.h; path = src/KeyChainHandler.h; sourceTree = "<group>"; };
-		4B8ACBBD0FCE59F100924796 /* KeyChainHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyChainHandler.m; path = src/KeyChainHandler.m; sourceTree = "<group>"; };
 		4BC1977110B5529300DE8CDA /* RemoteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RemoteProtocol.h; path = src/RemoteProtocol.h; sourceTree = "<group>"; };
 		4BD3A366105E94950048F7E5 /* SBCouchDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBCouchDatabase.h; path = src/CouchObjC/SBCouchDatabase.h; sourceTree = "<group>"; };
 		4BD3A367105E94950048F7E5 /* SBCouchDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBCouchDatabase.m; path = src/CouchObjC/SBCouchDatabase.m; sourceTree = "<group>"; };
@@ -86,10 +81,6 @@
 		4BD3A39E105E94E00048F7E5 /* NSDictionary+CouchObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+CouchObjC.m"; path = "src/JSON/NSDictionary+CouchObjC.m"; sourceTree = "<group>"; };
 		4BDF48EC10CF94F90057C860 /* WLogger_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLogger_Prefix.pch; path = src/WLogger_Prefix.pch; sourceTree = "<group>"; };
 		4BE2853710B0398700209635 /* WLoggerDaemon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = WLoggerDaemon; sourceTree = BUILT_PRODUCTS_DIR; };
-		4BF471700FC9B4E100CAF2EB /* EMKeychainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EMKeychainItem.h; path = src/EMKeychainItem.h; sourceTree = "<group>"; };
-		4BF471710FC9B4E100CAF2EB /* EMKeychainItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EMKeychainItem.m; path = src/EMKeychainItem.m; sourceTree = "<group>"; };
-		4BF471720FC9B4E100CAF2EB /* EMKeychainProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EMKeychainProxy.h; path = src/EMKeychainProxy.h; sourceTree = "<group>"; };
-		4BF471730FC9B4E100CAF2EB /* EMKeychainProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EMKeychainProxy.m; path = src/EMKeychainProxy.m; sourceTree = "<group>"; };
 		4BF471770FC9B5AC00CAF2EB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		4BF649A8105E8F9C00846D01 /* CouchObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CouchObjC.h; path = src/CouchObjC/CouchObjC.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,18 +104,12 @@
 			isa = PBXGroup;
 			children = (
 				4BF649A6105E8F8600846D01 /* CouchObjC */,
-				4BF471700FC9B4E100CAF2EB /* EMKeychainItem.h */,
-				4BF471710FC9B4E100CAF2EB /* EMKeychainItem.m */,
-				4BF471720FC9B4E100CAF2EB /* EMKeychainProxy.h */,
-				4BF471730FC9B4E100CAF2EB /* EMKeychainProxy.m */,
 				4B4C65200FBDDA4F00F9B1BB /* ReadingAssembler.h */,
 				4B4C65210FBDDA4F00F9B1BB /* ReadingAssembler.m */,
 				1BBAEBD00B374B3800957377 /* AppDelegate.h */,
 				1BBAEBCF0B374B3800957377 /* AppDelegate.m */,
 				4B4FD8C70FBB441F005A67CC /* WMR100NDeviceController.h */,
 				4B4FD8C80FBB441F005A67CC /* WMR100NDeviceController.m */,
-				4B8ACBBC0FCE59F100924796 /* KeyChainHandler.h */,
-				4B8ACBBD0FCE59F100924796 /* KeyChainHandler.m */,
 				4B0FA0ED0FE55F4800D94847 /* DataKeys.h */,
 				4BC1977110B5529300DE8CDA /* RemoteProtocol.h */,
 			);
@@ -156,19 +141,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1BD78AE20B4A87090094B0E4 /* Build Support */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Build Support";
-			sourceTree = "<group>";
-		};
 		29B97314FDCFA39411CA2CEA /* LogitechLCDTool */ = {
 			isa = PBXGroup;
 			children = (
 				4BDF48EC10CF94F90057C860 /* WLogger_Prefix.pch */,
 				4BF471770FC9B5AC00CAF2EB /* Security.framework */,
-				1BD78AE20B4A87090094B0E4 /* Build Support */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -284,9 +261,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BE2877610B03A9F00209635 /* AppDelegate.m in Sources */,
-				4BE2877710B03A9F00209635 /* EMKeychainItem.m in Sources */,
-				4BE2877810B03A9F00209635 /* EMKeychainProxy.m in Sources */,
-				4BE2877910B03A9F00209635 /* KeyChainHandler.m in Sources */,
 				4BE2877A10B03A9F00209635 /* main.m in Sources */,
 				4BE2878410B03A9F00209635 /* NSDictionary+CouchObjC.m in Sources */,
 				4BE2878810B03A9F00209635 /* ReadingAssembler.m in Sources */,

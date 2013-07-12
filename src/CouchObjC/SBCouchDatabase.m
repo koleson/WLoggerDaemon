@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -(NSEnumerator*) getViewEnumerator:(NSString*)viewId{
     //NSString *url = [self constructURL:viewId withRevisionCount:NO andInfo:NO revision:nil];
     
-    SBCouchView *view = [[SBCouchView alloc] initWithName:viewId];
+    SBCouchView *view = [[SBCouchView alloc] initWithName:viewId couchDatabase:self];
     SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithView:view] autorelease];
     return (NSEnumerator*)enumerator;    
 }
@@ -277,7 +277,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 - (SBCouchResponse*)postDocument:(NSDictionary*)doc
 {
-    NSData *body = [[doc JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSData *body = [NSJSONSerialization dataWithJSONObject:doc options:NSJSONWritingPrettyPrinted error:nil];
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/", couchServer.host, couchServer.port, self.name];
     NSURL *url = [NSURL URLWithString:urlString];    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
@@ -296,8 +297,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             SBDebug(@"%@", @"JSON was not in valid format");
         }
         
-        
-        return [[[SBCouchResponse alloc] initWithDictionary:jsonValue] autorelease];
+        return jsonValue;
     }else{
         SBDebug(@"HTTP POST FAILED:  %@",  urlString );
         SBDebug(@"        STATUS CODE %i",  [response statusCode]);
@@ -337,7 +337,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             SBDebug(@"%@", @"JSON was not in valid format");
         }
         
-        return [[[SBCouchResponse alloc] initWithDictionary:jsonValue] autorelease];
+        return jsonValue;
     }else{
         SBDebug(@"HTTP PUT FAILED:  %@",  urlString);
         SBDebug(@"        STATUS CODE %i",  [response statusCode]);
@@ -379,7 +379,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         }
         
         [couchDocument setRevision:[jsonValue objectForKey:@"rev"]];
-        return [[[SBCouchResponse alloc] initWithDictionary:jsonValue] autorelease];
+        return jsonValue;
     }else{
         SBDebug(@"HTTP PUT FAILED:  %@", urlString);
         SBDebug(@"        STATUS CODE %i",  [response statusCode]);
@@ -414,7 +414,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             SBDebug(@"%@", @"JSON was not in valid format");
         }
         
-        return [[[SBCouchResponse alloc] initWithDictionary:jsonValue] autorelease];
+        return jsonValue;
     }
     
     return nil;
@@ -443,8 +443,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         if (error) {
             SBDebug(@"%@", @"JSON was not in valid format");
         }
-        NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-        return [[[SBCouchResponse alloc] initWithDictionary:jsonValue] autorelease];
+
+        return jsonValue;
     }
     
     return nil;

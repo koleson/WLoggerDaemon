@@ -27,7 +27,7 @@
     [view viewEnumerator]
  
  Also, an SBCouchView plucked from a SBCouchDocument is not really Resource in the sense that 
- there's no referencable "things" at location /database/_design/*. In other words, the only 
+ there's no referencable "things" at location /database/_design/\*. In other words, the only 
  Resources at _design/ are design documents that just happen to hold/contain views. 
  
  So, what's a poor boy to do? I could be wrong but it seems like the natural thing to do is 

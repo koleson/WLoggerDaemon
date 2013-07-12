@@ -25,7 +25,7 @@
 #pragma mark -
 #pragma mark Experimental support for dynamic properties. 
 - (void) forwardInvocation: (NSInvocation*)invocation{
-    NSString* selectorName = NSStringFromSelector([invocation selector]);
+    __unsafe_unretained NSString* selectorName = NSStringFromSelector([invocation selector]);
     [invocation setArgument: &selectorName atIndex: 2];
     [invocation setSelector: NSSelectorFromString(@"objectForKey:")];
     return [invocation invokeWithTarget:self];

@@ -1,7 +1,6 @@
 
 
 #import "AppDelegate.h"
-#import "KeyChainHandler.h"
 #import "DataKeys.h"
 #import "RemoteProtocol.h"
 
@@ -41,7 +40,7 @@ static BOOL gDebugPrint;
 	wmr100n = [[WMR100NDeviceController alloc] init];	
 	weatherReport = [[SBCouchDocument alloc] init];
 	
-	currentStatus = [NSMutableDictionary dictionaryWithCapacity:5];
+	self.currentStatus = [NSMutableDictionary dictionaryWithCapacity:5];
 	
 	// Get the settings. If no exist, create a default set save it.
 	NSDictionary *settings = [self getSettings];
@@ -105,8 +104,8 @@ static BOOL gDebugPrint;
 }
 
 - (NSDictionary *) getLevels {
-	NSLog(@"Returning current status %@", currentStatus);
-	return [NSDictionary dictionaryWithDictionary:currentStatus];
+	NSLog(@"Returning current status %@", self.currentStatus);
+	return [NSDictionary dictionaryWithDictionary:self.currentStatus];
 }
 
 
@@ -180,10 +179,10 @@ static BOOL gDebugPrint;
 	// Store status in db
 	SBCouchDocument *storedReport = [db getDocument:KEY_DOC_STATUS withRevisionCount:NO andInfo:NO revision:nil];
 	if (!storedReport) {
-		storedReport = [[SBCouchDocument alloc] initWithNSDictionary:currentStatus couchDatabase:db];
+		storedReport = [[SBCouchDocument alloc] initWithNSDictionary:self.currentStatus couchDatabase:db];
 		[storedReport setObject:KEY_DOC_STATUS forKey:KEY_COUCH_ID];
 	} else {
-		[storedReport addEntriesFromDictionary:currentStatus];
+		[storedReport addEntriesFromDictionary:self.currentStatus];
 	}
 	[storedReport setObject:KEY_DOC_STATUS forKey:KEY_DOC_DOCTYPE];
 	SBCouchResponse *response =[db putDocument:storedReport named:KEY_DOC_STATUS];
@@ -242,7 +241,7 @@ static BOOL gDebugPrint;
 - (void) statusReportListener:(NSNotification *)notification {
 	NSDictionary *userInfo = [notification userInfo];
 	
-	[currentStatus addEntriesFromDictionary:userInfo];
+	[self.currentStatus addEntriesFromDictionary:userInfo];
 }
 
 

@@ -8,7 +8,7 @@
 
 #import "SBCouchDocument.h"
 #import "SBOrderedDictionary.h"
-#import "SBCouchServer.h";
+#import "SBCouchServer.h"
 #import "SBCouchDatabase.h"
 #import "CouchObjC.h"
 

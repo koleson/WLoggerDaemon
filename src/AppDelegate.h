@@ -23,8 +23,9 @@
     SBCouchServer *couch;
     SBCouchDatabase *db;
 	NSMutableDictionary *weatherReport;
-	NSMutableDictionary *currentStatus;
 }
+
+@property (nonatomic, strong) NSMutableDictionary *currentStatus;
 
 + (BOOL) debugPrint;
 - (NSDictionary *) getSettings;

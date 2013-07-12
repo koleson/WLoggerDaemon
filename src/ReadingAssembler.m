@@ -192,15 +192,22 @@ static int minuteCycleDone;
 				[userInfo setObject:[NSNumber numberWithUnsignedInt:humidity] forKey:KEY_HUMIDITY_OUTDOOR];
                 
                 // if dewPoint != dewPoint, we have NaN on our hands.  JSON doesn't like NaN.
-                // kmo 11 jul 2013 19h57
+                // kmo 11 jul 2013 18h57
                 if (dewPoint == dewPoint) {
                     [userInfo setObject:[NSNumber numberWithDouble:dewPoint] forKey:KEY_TEMP_DEWPOINT_CALCULATED];
                 }
 			} else if (sensor >= 2) {
 				NSString *keyForTemp = [NSString stringWithFormat:@"%@%d", KEY_TEMP_SENSOR_X, sensor];
-				NSString *keyForHumidity = [NSString stringWithFormat:@"%@%d", KEY_HUMIDITY_SENSOR_X, sensor];
-				[userInfo setObject:[NSNumber numberWithDouble:temp] forKey:keyForTemp];				
-				[userInfo setObject:[NSNumber numberWithUnsignedInt:humidity] forKey:keyForHumidity];				
+				[userInfo setObject:[NSNumber numberWithDouble:temp] forKey:keyForTemp];
+                
+				// speaking practically, if humidity reading is 0, it means the device
+                // does not have a hygrometer.
+                // kmo 11 jul 2013 19h41
+                if (humidity != 0) {
+                    NSString *keyForHumidity = [NSString stringWithFormat:@"%@%d", KEY_HUMIDITY_SENSOR_X, sensor];
+                    [userInfo setObject:[NSNumber numberWithUnsignedInt:humidity] forKey:keyForHumidity];
+                }
+								
 			}
 
 			NSString *key = [NSString stringWithFormat:@"%@%d", KEY_TEMP_AND_HUM_READING_SENSOR_, sensor];

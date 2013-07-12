@@ -11,7 +11,7 @@
 
 
 @interface WMR100NDeviceController : NSObject {
-	void *  report;
+	void *report;
 	IOHIDManagerRef gHIDManager;
 	IOHIDDeviceRef gHidDeviceRef;
 	NSMutableData *buffer;

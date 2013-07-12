@@ -7,8 +7,6 @@
 
 int main(int argc, char *argv[])
 {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
 	NSLog(@"Starting up");
 	AppDelegate *ad = [[AppDelegate alloc] init];
 
