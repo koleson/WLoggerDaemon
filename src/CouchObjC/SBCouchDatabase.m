@@ -36,7 +36,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "CouchObjC.h"
 
 @interface SBCouchDatabase (Private)
-   -(NSString*)contructURL:(NSString*)withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil;
+   -(NSString*)constructURL:(NSString*)url withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil;
 @end 
 
 @implementation SBCouchDatabase
@@ -137,7 +137,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (NSDictionary*)get:(NSString*)args
 {
     //assert(self.name);
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, args];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%lu/%@/%@", couchServer.host, (unsigned long)couchServer.port, self.name, args];
 
     NSString *encodedString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
@@ -222,7 +222,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSError *jsonError;
     NSData *tempData = [NSJSONSerialization dataWithJSONObject:view options:NSJSONWritingPrettyPrinted error:&jsonError];
     if (jsonError) {
-        SBDebug(@"could not generate serialization of view");
+        SBDebug(@"%@", @"could not generate serialization of view");
     }
     
     NSString *tempView = [NSString stringWithUTF8String:[tempData bytes]];
@@ -230,9 +230,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     
     NSString *urlString;
     if(view.queryOptions)
-        urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@?%@", couchServer.host, couchServer.port, self.name, @"_temp_view", [view.queryOptions queryString]];
+        urlString = [NSString stringWithFormat:@"http://%@:%lu/%@/%@?%@", couchServer.host, (unsigned long)couchServer.port, self.name, @"_temp_view", [view.queryOptions queryString]];
     else
-        urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, @"_temp_view"];
+        urlString = [NSString stringWithFormat:@"http://%@:%lu/%@/%@", couchServer.host, (unsigned long)couchServer.port, self.name, @"_temp_view"];
 
     
     NSString *encodedURL = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -279,7 +279,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 {
     
     NSData *body = [NSJSONSerialization dataWithJSONObject:doc options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/", couchServer.host, couchServer.port, self.name];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%lu/%@/", couchServer.host, (unsigned long)couchServer.port, self.name];
     NSURL *url = [NSURL URLWithString:urlString];    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
     [request setHTTPBody:body];
@@ -319,7 +319,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     }
     
     NSData *body = tempData;
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, x];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%lu/%@/%@", couchServer.host, (unsigned long)couchServer.port, self.name, x];
     NSURL *url = [NSURL URLWithString:urlString];    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
     [request setHTTPBody:body];
@@ -356,7 +356,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     }
     
     NSData *body = tempData;
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, [couchDocument identity]];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%lu/%@/%@", couchServer.host, (unsigned long)couchServer.port, self.name, [couchDocument identity]];
     NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];    
     SBDebug(@"%@", urlString);
     SBDebug(@"%@", couchDocument);
@@ -425,7 +425,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 - (SBCouchResponse*)deleteDocument:(NSDictionary*)doc
 {
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@?rev=%@", couchServer.host, couchServer.port, self.name, doc.name, doc.rev];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%lu/%@/%@?rev=%@", couchServer.host, (unsigned long)couchServer.port, self.name, doc.name, doc.rev];
     NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
     [request setHTTPMethod:@"DELETE"];
@@ -466,10 +466,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 -(NSString*)urlString{
-    return [NSString stringWithFormat:@"http://%@:%u/%@", couchServer.host, couchServer.port, self.name];
+    return [NSString stringWithFormat:@"http://%@:%lu/%@", couchServer.host, (unsigned long)couchServer.port, self.name];
 }
 
 -(NSString*)description{
-    return [NSString stringWithFormat:@"http://%@:%u/%@", couchServer.host, couchServer.port, self.name];
+    return [NSString stringWithFormat:@"http://%@:%lu/%@", couchServer.host, (unsigned long)couchServer.port, self.name];
 }
 @end

@@ -124,7 +124,7 @@ static BOOL gDebugPrint;
 	CFPreferencesSynchronize(APP_ID, kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
 	
 	// Sync globals
-	int interval = [[settings objectForKey:@"couchDBUpdateInterval"] integerValue];
+	NSInteger interval = [[settings objectForKey:@"couchDBUpdateInterval"] integerValue];
 	if (interval < 1 || interval > 1000)
 		interval = 2; // Reasonable default value if it should be missing
 	[ra setInterval: interval];
@@ -185,7 +185,7 @@ static BOOL gDebugPrint;
 		[storedReport addEntriesFromDictionary:self.currentStatus];
 	}
 	[storedReport setObject:KEY_DOC_STATUS forKey:KEY_DOC_DOCTYPE];
-	SBCouchResponse *response =[db putDocument:storedReport named:KEY_DOC_STATUS];
+	[db putDocument:storedReport named:KEY_DOC_STATUS];
 }
 
 

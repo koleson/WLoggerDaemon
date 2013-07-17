@@ -80,7 +80,7 @@ static void Handle_IOHIDDeviceInputReportCallback(void *          inContext,		//
 	unsigned sum = 0;
 	int i = 0;
 	UInt8 *data = (UInt8*) [reading bytes];
-	unsigned last = [reading length] - 2;
+	NSUInteger last = [reading length] - 2;
 	
 	for (i = 0; i < last; i++)
 		sum += data[i];
@@ -189,7 +189,7 @@ static void Handle_IOHIDDeviceInputReportCallback(void *          inContext,		//
 													 triggerReport,                         // address of report buffer
 													 reportLength);                         // length of the report
 			if (kIOReturnSuccess != ioReturn)
-				NSLog(@"%s, IOHIDDeviceSetReport error: %ld (0x%08lX)", __PRETTY_FUNCTION__, ioReturn, ioReturn);
+				NSLog(@"%s, IOHIDDeviceSetReport error: %d (0x%08X)", __PRETTY_FUNCTION__, ioReturn, ioReturn);
 		}
 	}
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"DeviceAdded" object:self userInfo:nil];

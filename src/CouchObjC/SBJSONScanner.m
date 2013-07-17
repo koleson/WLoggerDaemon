@@ -214,6 +214,7 @@ static char ctrl[0x22];
     } while (*c == ',' && c++);
 
     [self raise:enocomma format:@"Expected , or ] while parsing array"];
+    return NO;
 }
 
 - (BOOL)scanDictionary:(NSDictionary **)o
@@ -264,6 +265,7 @@ static char ctrl[0x22];
     } while (*c == ',' && c++);
     
     [self raise:enocomma format:@"Expected , or } while parsing dictionary"];
+    return NO;
 }
 
 - (BOOL)scanRestOfString:(NSMutableString **)o

@@ -8,7 +8,8 @@
 int main(int argc, char *argv[])
 {
 	NSLog(@"Starting up");
-	AppDelegate *ad = [[AppDelegate alloc] init];
+	
+    [[AppDelegate alloc] init];
 
 	[[NSRunLoop currentRunLoop] run];
 }

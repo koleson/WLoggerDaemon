@@ -357,8 +357,9 @@ static int minuteCycleDone;
 			if (noPower) {
 				// Not good! Alert user once every hour
 				// Not much meaning if computer also lost power, but some people do have UPS
+/*
 				NSDate *dateForPreviousWarning = [[NSUserDefaults standardUserDefaults] objectForKey:@"LatestNoPowerWarningDate"];
-/*				
+				
 				if (dateForPreviousWarning == nil || [[NSDate date] timeIntervalSinceDate:dateForPreviousWarning] > 3600) {
 					NSLog(@"Main unit without external power");
 					[GrowlApplicationBridge

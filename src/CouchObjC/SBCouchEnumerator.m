@@ -57,7 +57,7 @@
 #pragma mark -
 - (id)objectAtIndex:(NSInteger)index ofPage:(NSInteger)aPageNumber{        
     aPageNumber--;
-    if(index < 0 || index > self.queryOptions.limit && self.queryOptions.limit != 0)
+    if(index < 0 || (index > self.queryOptions.limit && self.queryOptions.limit != 0))
         return nil;
     // decrement the index to account for the fact that rows are stored in an NSArray that is 0th based. 
     //index--;
@@ -102,10 +102,10 @@
 }
 
 -(void)logIndexes{
-    SBDebug(@"----------------------------------------------- \n");
-    SBDebug(@"sizeOfLastFetch = %i", self.sizeOfLastFetch);
-    SBDebug(@"limit           = %i", self.queryOptions.limit);
-    SBDebug(@"currentIndex    = %i", self.currentIndex);
+    SBDebug(@"%@", @"----------------------------------------------- \n");
+    SBDebug(@"%@", @"sizeOfLastFetch = %i", self.sizeOfLastFetch);
+    SBDebug(@"%@", @"limit           = %i", self.queryOptions.limit);
+    SBDebug(@"%@", @"currentIndex    = %i", self.currentIndex);
     
 }
 
@@ -185,23 +185,23 @@
     //if(! (self.totalRows >= self.queryOptions.limit && self.queryOptions.limit >= self.sizeOfLastFetch))
     //    return;
     
-    // contruct a new URL using our own copy of the query options
+    // construct a new URL using our own copy of the query options
     // View URLs are expected to have names like
     // _design/designdocName/_view/viewName?xx=xx  && _all_docs
     // This format will be changing in the 0.9 release of CouchDB
     NSDictionary *etf;
-    NSString *contructedUrl;
+    NSString *constructedUrl;
     if(self.queryOptions){
-        contructedUrl = [NSString stringWithFormat:@"%@?%@", [self.couchView identity], [self.queryOptions queryString]];        
+        constructedUrl = [NSString stringWithFormat:@"%@?%@", [self.couchView identity], [self.queryOptions queryString]];
     }else{
-        contructedUrl = [NSString stringWithFormat:@"%@", [self.couchView identity]];
+        constructedUrl = [NSString stringWithFormat:@"%@", [self.couchView identity]];
     }
         
     if(self.couchView.runAsSlowView){            
         self.couchView.queryOptions = self.queryOptions;
         etf = [self.couchView.couchDatabase runSlowView:self.couchView];        
     }else{
-        etf = [self.couchView.couchDatabase get:contructedUrl];
+        etf = [self.couchView.couchDatabase get:constructedUrl];
     }
         
 

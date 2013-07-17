@@ -10,11 +10,11 @@
 
 
 @interface ReadingAssembler : NSObject {
-	unsigned interval;
+	NSUInteger interval;
 	BOOL useComputersClock;
 }
 
-@property unsigned interval;
+@property NSUInteger interval;
 @property BOOL useComputersClock;
 
 @end
