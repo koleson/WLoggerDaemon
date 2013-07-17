@@ -41,8 +41,8 @@ static Boolean IOHIDDevice_GetLongProperty(IOHIDDeviceRef inIOHIDDeviceRef, CFSt
 static void Handle_DeviceRemovalCallback(void * inContext, IOReturn inResult, void * inSender, IOHIDDeviceRef inIOHIDDeviceRef)
 {
 	if (inResult != kIOReturnSuccess) {
-		fprintf(stderr, "%s( context: %p, result: %p, sender: %p ).\n", 
-				__PRETTY_FUNCTION__, inContext, ( void * ) inResult, inSender);
+		fprintf(stderr, "%s( context: %p, result: %d, sender: %p ).\n",
+				__PRETTY_FUNCTION__, inContext, inResult, inSender);
 		return;
 	}
 	WMR100NDeviceController *self = (WMR100NDeviceController *) inContext;
@@ -140,7 +140,7 @@ static void Handle_IOHIDDeviceInputReportCallback(void *          inContext,		//
 	[buffer appendBytes:&inReport[1] length:noOfValidBytes];
 	
 	// Find 0xffff - all before that is a reading
-	int len = [buffer length];
+	NSUInteger len = [buffer length];
 	if (len > 1) {
 		for (int i = 0; i < len - 1; i++) {
 			uint8_t *bytes = (uint8_t*) [buffer bytes];

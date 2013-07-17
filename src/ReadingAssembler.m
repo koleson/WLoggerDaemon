@@ -308,7 +308,7 @@ static int minuteCycleDone;
 			if (GMTZone > 128)
 				GMTZone = (128 - GMTZone);
 			
-			NSTimeZone *zone = [NSTimeZone timeZoneForSecondsFromGMT:GMTZone * 3600];
+			//NSTimeZone *zone = [NSTimeZone timeZoneForSecondsFromGMT:GMTZone * 3600];
 			NSDateComponents *comps = [[NSDateComponents alloc] init];
 			[comps setYear:rb[8] + 2000];
 			[comps setMonth:rb[7]];
