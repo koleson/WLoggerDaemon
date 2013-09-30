@@ -20,6 +20,7 @@
 #define KEY_RADIO_CLOCK_SYNC @"baseHasRadioSync"
 #define KEY_RADIO_CLOCK_LEVEL @"baseRadioSyncLevel"
 #define KEY_BASE_STATION_TIME @"baseStationTime"
+#define KEY_SYSTEM_TIME @"systemTime"
 #define KEY_RAIN_TOTAL_RESET_TIME @"rainTotalResetTime"
 
 

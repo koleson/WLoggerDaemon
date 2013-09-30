@@ -349,6 +349,7 @@ static int minuteCycleDone;
 			if (syncedWithRF)
 				[report setObject:strongRFSignal ? @"low" : @"high" forKey:KEY_RADIO_CLOCK_LEVEL];
 			[report setObject:[dateFormatter stringFromDate:baseStationTime] forKey:KEY_BASE_STATION_TIME];
+            [report setObject:[dateFormatter stringFromDate:[NSDate date]] forKey:KEY_SYSTEM_TIME];
 			[[NSNotificationCenter defaultCenter] postNotificationName:@"StatusReport" object:self userInfo:report];
 			
 			if (DEBUGALOT)
